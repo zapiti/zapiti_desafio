@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "370934314103",
+    "firebase_url": "https://fir-functions-43cbb.firebaseio.com",
+    "project_id": "fir-functions-43cbb",
+    "storage_bucket": "fir-functions-43cbb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:370934314103:android:b51a8d1581d25a24654272",
+        "android_client_info": {
+          "package_name": "com.zapiti.desafio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "370934314103-5rk6qlb6eqe3htasc6qb0invmq02bune.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-Hjaf8CXFqbMI2baNgkhnWdTOPt0733Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "370934314103-5rk6qlb6eqe3htasc6qb0invmq02bune.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:370934314103:android:fa832f29cfcb70b2654272",
+        "android_client_info": {
+          "package_name": "com.zapiti.keep_up"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "370934314103-5rk6qlb6eqe3htasc6qb0invmq02bune.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-Hjaf8CXFqbMI2baNgkhnWdTOPt0733Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "370934314103-5rk6qlb6eqe3htasc6qb0invmq02bune.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
