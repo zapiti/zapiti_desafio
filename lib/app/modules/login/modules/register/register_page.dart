@@ -80,30 +80,47 @@ class _RegisterPageState extends State<RegisterPage> {
                             initialData: false,
                             builder: (BuildContext context,
                                 AsyncSnapshot<dynamic> snapshotHide) {
-                              return CustomGreyTextField(
-                                enabled: !_isLoadRequest,
-                                obscureText: snapshotHide.data,
-                                labelText: "Senha",
-                                controller: bloc.passController,errorText: snapshotPass.data,onChanged: (text){
-                                bloc.erroPassView.sink.add(null);
-                              },
-                                prefixIcon: Icon(
-                                  Icons.lock,
-                                  size: 18,
-                                  color: AppThemeUtils.colorPrimary,
-                                ),
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    snapshotHide.data
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
-                                    color: AppThemeUtils.colorPrimaryDark,
-                                  ),
-                                  onPressed: () {
-                                    bloc.showPass.sink.add(!snapshotHide.data);
-                                  },
-                                ),
-                              );
+                              return Container(
+                                  child: Card(
+                                      color: AppThemeUtils.colorsGrey,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                        const BorderRadius.all(
+                                          Radius.circular(18.0),
+                                        ),
+                                      ),
+                                      child: TextField(
+                                        enabled: !_isLoadRequest,
+                                        obscureText: snapshotHide.data,
+                                        decoration: InputDecoration(
+                                          labelText: "Senha",
+                                          errorText: snapshotPass.data,
+                                          prefixIcon: Icon(
+                                            Icons.lock,
+                                            size: 18,
+                                            color: AppThemeUtils
+                                                .colorPrimary,
+                                          ),
+                                          suffixIcon: IconButton(
+                                            icon: Icon(
+                                              snapshotHide.data
+                                                  ? Icons.visibility
+                                                  : Icons.visibility_off,
+                                              color: AppThemeUtils
+                                                  .colorPrimaryDark,
+                                            ),
+                                            onPressed: () {
+                                              bloc.showPass.sink.add(
+                                                  !snapshotHide.data);
+                                            },
+                                          ),
+                                        ),
+                                        onChanged: (text) {
+                                          bloc.erroPassView.sink
+                                              .add(null);
+                                        },
+                                        controller: bloc.passController,
+                                      )));
                             }))),
 
                     _isLoadRequest

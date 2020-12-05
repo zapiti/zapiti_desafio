@@ -44,9 +44,15 @@ class InitBloc extends Disposable {
             .snapshots()
             .listen((QuerySnapshot docSnapshot) {
           var docs = docSnapshot.docs;
+          docs.sort((a, b) {
+            var adate = News.fromMap(a);
+            var bdate = News.fromMap(b);
+            return adate.message.created_at.compareTo(bdate.message
+                .created_at); //to get the order other way just switch `adate & bdate`
+          });
           if (docSnapshot.size != 0) {
             listRealPost.sink
-                .add(docs.map<News>((e) => News.fromMap(e.data())).toList());
+                .add(docs.reversed.map<News>((e) => News.fromMap(e.data())).toList());
           } else {
             listRealPost.sink.add([]);
           }
@@ -65,15 +71,15 @@ class InitBloc extends Disposable {
     listFakePost.close();
   }
 
-  void deletePost(BuildContext context,News news) {
-    homeBloc.deletePost(context,myNews: news,onSuccess: (){
+  void deletePost(BuildContext context, News news) {
+    homeBloc.deletePost(context, myNews: news, onSuccess: () {
       listRealPost.sink.add(null);
       getRealListPost();
     });
   }
 
-  void editPost(BuildContext context,News news) {
-    homeBloc.creatPostOrEdit(context,myNews: news,onSuccess: (){
+  void editPost(BuildContext context, News news) {
+    homeBloc.creatPostOrEdit(context, myNews: news, onSuccess: () {
       listRealPost.sink.add(null);
       getRealListPost();
     });

@@ -19,7 +19,7 @@ class _LogInPageState extends State<LogInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  Column(
+      body: Column(
         children: <Widget>[
           AppBarCustom("Login"),
           Expanded(
@@ -31,60 +31,84 @@ class _LogInPageState extends State<LogInPage> {
                   var _isLoadRequest = snapshot.data;
                   return Column(
                     children: [
-                   StreamBuilder<String>(stream: bloc.erroEmailView,builder: (context,snapshotEmail)=>   Container(
-                          margin: EdgeInsets.only(
-                              right: 30, left: 30, top: 56, bottom: 20),
-                          child:  CustomGreyTextField(
-                            enabled: !_isLoadRequest,
-                            obscureText:false,
-                            labelText: "E-mail",errorText:snapshotEmail.data,onChanged:(text){
-                            bloc.erroEmailView.sink.add(null);
-                          },
-                            controller: bloc.emailController,
-                            prefixIcon: Icon(
-                              Icons.person,
-                              size: 18,
-                              color: AppThemeUtils.colorPrimary,
-                            ),
-                          ))),
-                      StreamBuilder<String>(stream: bloc.erroPassView,builder: (context,snapshotPass)=>    Container(
-                          margin: EdgeInsets.symmetric(horizontal: 30),
-                          child: StreamBuilder<bool>(
-                              stream: bloc.showPass.stream,
-                              initialData: false,
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<dynamic> snapshotHide) {
-                                return CustomGreyTextField(
-                                  enabled: !_isLoadRequest,
-                                  obscureText: snapshotHide.data,
-                                  labelText: "Senha",errorText:snapshotPass.data,onChanged:(text){
-                                  bloc.erroPassView.sink.add(null);
+                      StreamBuilder<String>(
+                          stream: bloc.erroEmailView,
+                          builder: (context, snapshotEmail) => Container(
+                              margin: EdgeInsets.only(
+                                  right: 30, left: 30, top: 56, bottom: 20),
+                              child: CustomGreyTextField(
+                                enabled: !_isLoadRequest,
+                                obscureText: false,
+                                labelText: "E-mail",
+                                errorText: snapshotEmail.data,
+                                onChanged: (text) {
+                                  bloc.erroEmailView.sink.add(null);
                                 },
-                                  controller: bloc.passController,
-                                  prefixIcon: Icon(
-                                    Icons.lock,
-                                    size: 18,
-                                    color: AppThemeUtils.colorPrimary,
-                                  ),
-                                  suffixIcon: IconButton(
-                                    icon: Icon(
-                                      snapshotHide.data
-                                          ? Icons.visibility
-                                          : Icons.visibility_off,
-                                      color: AppThemeUtils.colorPrimaryDark,
-                                    ),
-                                    onPressed: () {
-                                      bloc.showPass.sink.add(!snapshotHide.data);
-                                    },
-                                  ),
-                                );
-                              }))),
+                                controller: bloc.emailController,
+                                prefixIcon: Icon(
+                                  Icons.person,
+                                  size: 18,
+                                  color: AppThemeUtils.colorPrimary,
+                                ),
+                              ))),
+                      StreamBuilder<String>(
+                          stream: bloc.erroPassView,
+                          builder: (context, snapshotPass) => Container(
+                              margin: EdgeInsets.symmetric(horizontal: 30),
+                              child: StreamBuilder<bool>(
+                                  stream: bloc.showPass.stream,
+                                  initialData: false,
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<bool> snapshotHide) {
+                                    return Container(
+                                        child: Card(
+                                            color: AppThemeUtils.colorsGrey,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                Radius.circular(18.0),
+                                              ),
+                                            ),
+                                            child: TextField(
+                                              enabled: !_isLoadRequest,
+                                              obscureText: snapshotHide.data,
+                                              decoration: InputDecoration(
+                                                labelText: "Senha",
+                                                errorText: snapshotPass.data,
+                                                prefixIcon: Icon(
+                                                  Icons.lock,
+                                                  size: 18,
+                                                  color: AppThemeUtils
+                                                      .colorPrimary,
+                                                ),
+                                                suffixIcon: IconButton(
+                                                  icon: Icon(
+                                                    snapshotHide.data
+                                                        ? Icons.visibility
+                                                        : Icons.visibility_off,
+                                                    color: AppThemeUtils
+                                                        .colorPrimaryDark,
+                                                  ),
+                                                  onPressed: () {
+                                                    bloc.showPass.sink.add(
+                                                        !snapshotHide.data);
+                                                  },
+                                                ),
+                                              ),
+                                              onChanged: (text) {
+                                                bloc.erroPassView.sink
+                                                    .add(null);
+                                              },
+                                              controller: bloc.passController,
+                                            )));
+                                  }))),
                       Container(
                           margin: EdgeInsets.symmetric(horizontal: 30),
                           alignment: Alignment.centerRight,
                           child: FlatButton(
                               onPressed: () {
-                                Modular.to.pushNamed(ConstantsRoutes.RECOVERYPASS);
+                                Modular.to
+                                    .pushNamed(ConstantsRoutes.RECOVERYPASS);
                               },
                               child: Text(
                                 "Esqueceu sua senha?",
@@ -92,27 +116,28 @@ class _LogInPageState extends State<LogInPage> {
                               ))),
                       _isLoadRequest
                           ? loadElements(context)
-                          :    Padding(
-                        padding: EdgeInsets.only(top: 15, bottom: 15),
-                        child: SizedBox(
-                          width: 150,height: 45,
-                          child: RaisedButton(
-                            padding: EdgeInsets.all(5),
-                            color: AppThemeUtils.colorPrimary80,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
+                          : Padding(
+                              padding: EdgeInsets.only(top: 15, bottom: 15),
+                              child: SizedBox(
+                                width: 150,
+                                height: 45,
+                                child: RaisedButton(
+                                  padding: EdgeInsets.all(5),
+                                  color: AppThemeUtils.colorPrimary80,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: Text(
+                                    "Entrar",
+                                    style: AppThemeUtils.normalSize(
+                                        color: AppThemeUtils.whiteColor),
+                                  ),
+                                  onPressed: () {
+                                    bloc.getLogin(context);
+                                  },
+                                ),
+                              ),
                             ),
-                            child: Text(
-                              "Entrar",
-                              style: AppThemeUtils.normalSize(
-                                  color: AppThemeUtils.whiteColor),
-                            ),
-                            onPressed: () {
-                              bloc.getLogin(context);
-                            },
-                          ),
-                        ),
-                      ),
                     ],
                   );
                 }),

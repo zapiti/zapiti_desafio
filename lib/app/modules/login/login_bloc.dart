@@ -110,6 +110,7 @@ class LoginBloc extends Disposable {
   void getLogout({bool goToLogin}) {
     FirebaseAuth auth = GetIt.I.get<FirebaseAuth>();
     _bloc.anonimoUserSubject.sink.add(false);
+    _bloc.currentUserSubject.sink.add(null);
     auth.signOut().then((value) {
       storage.clear().then((value) {
 

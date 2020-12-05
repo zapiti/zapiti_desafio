@@ -24,23 +24,23 @@ class HomeBloc extends Disposable {
     selectedMenu.drain();
   }
 
-  void creatPostOrEdit(context, {News myNews,  Function() onSuccess}) {
+  void creatPostOrEdit(context, {News myNews, Function onSuccess}) {
     var controllPost = TextEditingController();
     controllPost.text = myNews?.message?.content;
     var news = myNews ?? News();
-    news.user = MyUser();
+    news.user = appBloc.getCurrentUserValue();
     news.message = Message();
-    news.user.name = appBloc.getCurrentUserValue().name;
+
 
     showTextFieldGenericDialog(
         context: context,
-        title: "Criar postagem",
+        title: news.id != null ? "Editar postagem" : "Criar postagem",
         inputFormatters: [LengthLimitingTextInputFormatter(280)],
         minSize: 30,
         lines: 4,
         erroText: "Escreva entre 30 e 280 caracteres.",
         controller: controllPost,
-        positiveText: "Enviar",
+        positiveText: news.id != null ? "Editar" : "Enviar",
         positiveCallback: () {
           news.message.created_at = DateUtils.parseDateTimeFormat(
               DateTime.now(),
@@ -48,10 +48,9 @@ class HomeBloc extends Disposable {
           news.message.content = controllPost.text;
           controllPost.clear();
           createRecord(news);
-          if(onSuccess != null){
+          if (onSuccess != null) {
             onSuccess();
           }
-
         });
   }
 

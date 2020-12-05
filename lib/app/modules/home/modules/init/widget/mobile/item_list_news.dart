@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:uuid/uuid.dart';
 import 'package:zapiti_desafio/app/component/dialog/dialog_generic.dart';
 import 'package:zapiti_desafio/app/component/simple/line_view_widget.dart';
 import 'package:zapiti_desafio/app/image/image_path.dart';
@@ -29,6 +30,9 @@ class ItemListNews extends StatelessWidget {
         constraints: BoxConstraints(maxHeight: 210),
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: Card(
+          color:   !Utils.isMyNews(news)
+              ? AppThemeUtils.whiteColor
+              :Colors.grey[200],
           child: Column(
             children: [
               Row(
@@ -37,7 +41,10 @@ class ItemListNews extends StatelessWidget {
                       width: 70,
                       height: 70,
                       padding: EdgeInsets.all(10),
-                      child: FadeInImage(
+                      child: CircleAvatar(
+                        radius: 70,
+                        child: ClipOval(
+                            child:FadeInImage(
                         imageErrorBuilder: (BuildContext context,
                             Object exception, StackTrace stackTrace) {
                           return Container(
@@ -48,10 +55,11 @@ class ItemListNews extends StatelessWidget {
                                   color: RandomHexColor().colorRandom()),
                               child: index % 2 == 0
                                   ? CircleAvatar(
-                                      radius: 30,
+                                      radius: 70,
                                       child: ClipOval(
                                           child: Image.network(
-                                        ImagePath.radom(index),
+                                        ImagePath.radom(index),   width: 70,
+                                            height: 70,
                                       )),
                                     )
                                   : Center(
@@ -69,7 +77,7 @@ class ItemListNews extends StatelessWidget {
                         fit: BoxFit.cover,
                         height: 100.0,
                         width: 100.0,
-                      )),
+                      )))),
                   Expanded(
                       child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -78,7 +86,9 @@ class ItemListNews extends StatelessWidget {
                           width: MediaQuery.of(context).size.width,
                           child: Text(
                             "${news.user.name}",
-                            style: AppThemeUtils.normalBoldSize(),
+                            style: AppThemeUtils.normalBoldSize(color: !Utils.isMyNews(news)
+                                ? AppThemeUtils.black
+                                :AppThemeUtils.colorSecundary),
                           )),
                       Container(
                           child: Text(
@@ -109,9 +119,7 @@ class ItemListNews extends StatelessWidget {
                         maxLines: 6,
                         overflow: TextOverflow.ellipsis,
                       ))),
-              news.user.uid == null
-                  ? SizedBox()
-                  : news.user.uid != appBloc.getCurrentUserValue().uid.toString()
+              !Utils.isMyNews(news)
                       ? SizedBox()
                       : Container(
                           margin: EdgeInsets.all(5),
@@ -121,7 +129,7 @@ class ItemListNews extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               FloatingActionButton(
-                                heroTag: "989",
+                                heroTag: Uuid().v4(),
                                 child: Icon(
                                   Icons.edit,
                                   color: AppThemeUtils.whiteColor,
@@ -133,7 +141,7 @@ class ItemListNews extends StatelessWidget {
                                 mini: true,
                               ),
                               FloatingActionButton(
-                                heroTag: "898",
+                                heroTag: Uuid().v4(),
                                 child: Icon(
                                   Icons.delete,
                                   color: AppThemeUtils.whiteColor,

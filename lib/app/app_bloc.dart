@@ -20,8 +20,8 @@ class AppBloc extends Disposable {
     final anonimo = anonimoUserSubject.stream.value;
 
     if (localUser != null || anonimo) {
-      user = MyUser();
-      user.name = localUser?.displayName ?? localUser?.email ?? "Anônimo";
+
+      user.email = localUser?.displayName ?? localUser?.email ?? "Anônimo";
       user.uid = localUser?.uid;
       currentUserSubject.sink.add(user);
     } else {
@@ -46,7 +46,7 @@ class AppBloc extends Disposable {
     final anonimo = anonimoUserSubject.stream.value;
 
     if (localUser != null || anonimo) {
-      user.name = localUser?.displayName ?? localUser?.email ?? "Anônimo";
+      user.email = localUser?.displayName ?? localUser?.email ?? "Anônimo";
       user.uid = localUser?.uid;
       currentUserSubject.sink.add(user);
     } else {

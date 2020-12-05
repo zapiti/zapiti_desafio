@@ -71,6 +71,11 @@ class DateAppBarCustom extends StatelessWidget {
                               context: context,
                               text: "Q",
                               selected: selectedDate(snapshot.data, "quinta"),
+                              dateTime: snapshot.data)),      Expanded(
+                          child: selectDay(
+                              context: context,
+                              text: "S",
+                              selected: selectedDate(snapshot.data, "Sexta"),
                               dateTime: snapshot.data)),
                       Expanded(
                           child: selectDay(
@@ -107,10 +112,13 @@ class DateAppBarCustom extends StatelessWidget {
 }
 
 bool selectedDate(DateTime dateTime, String text) {
-  return DateFormat('EEEE', 'pt_BR')
+  String day = DateFormat('EEEE', 'pt_BR')
       .format(
-        dateTime ?? DateTime.now(),
-      )
+    dateTime ?? DateTime.now(),
+  ).toLowerCase();
+  var isEquals = day
       .toLowerCase()
       .contains(text.toLowerCase());
+
+  return isEquals;
 }

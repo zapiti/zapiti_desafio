@@ -38,4 +38,8 @@ class StringFile {
 
   static var radomImage = "https://source.unsplash.com/random";
 
+  static var precisaLogaEditar = "Para editar o perfil voce deve logar🕵";
+
+  static var naoAnadaPorAqui = "Não á nada por aqui!🍰\nLogue para ver seu perfil​🍰​🎃";
+
 }

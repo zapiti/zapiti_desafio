@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:zapiti_desafio/app/app_bloc.dart';
@@ -22,8 +23,8 @@ Widget selectDay({BuildContext context,String text,bool selected,DateTime dateTi
         children: [
         Container(
 
-      child: Center(child:    Text(
-            text,textAlign: TextAlign.center,
+      child: Center(child:    AutoSizeText(
+            text,textAlign: TextAlign.center,minFontSize: 8,
 
 
             style: AppThemeUtils.normalBoldSize(

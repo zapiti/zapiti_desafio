@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 import 'package:zapiti_desafio/app/component/external_lib/speed_dial_controller.dart';
 
 import 'layout.dart';
@@ -66,7 +67,7 @@ class SpeedDialFloatingActionButton extends StatelessWidget {
         );
       },
       child: FloatingActionButton(
-          heroTag: "159",
+         heroTag: Uuid().v4(),
           backgroundColor: Colors.transparent,elevation: 0,
           onPressed: () {}),
     );
@@ -286,7 +287,7 @@ class _SpeedDialState extends State<SpeedDial> with TickerProviderStateMixin {
               curve: Curves.linear),
         ),
         child: FloatingActionButton(
-          heroTag: "15",
+          heroTag:  Uuid().v4(),
           backgroundColor: backgroundColor,
           foregroundColor: foregroundColor,
           mini: true,
@@ -299,7 +300,7 @@ class _SpeedDialState extends State<SpeedDial> with TickerProviderStateMixin {
 
   Widget _buildFab() {
     return FloatingActionButton(
-      heroTag: "515",
+      heroTag:  Uuid().v4(),
       onPressed: toggle,
       backgroundColor: widget.backgroundColor,
       foregroundColor: widget.foregroundColor,

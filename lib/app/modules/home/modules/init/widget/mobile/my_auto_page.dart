@@ -4,10 +4,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-
 import 'package:zapiti_desafio/app/modules/home/modules/init/model/news.dart';
-
-
 import 'item_list_news.dart';
 
 class MyAutoPage extends StatefulWidget {

@@ -48,11 +48,11 @@ Widget emptyViewMobile(BuildContext context,
                   child: Text(
                     buttomText ?? StringFile.atualizar,
                     style: AppThemeUtils.normalSize(
-                        color: Theme.of(context).primaryColor),
+                        color: AppThemeUtils.colorSecundary),
                   ),
                   shape: RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(10.0),
-                      side: BorderSide(color: Theme.of(context).primaryColor)))
+                      side: BorderSide(color: AppThemeUtils.colorSecundary)))
               : SizedBox(),
         ],
       )));

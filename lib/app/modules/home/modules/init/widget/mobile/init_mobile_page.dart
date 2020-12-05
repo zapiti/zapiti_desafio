@@ -42,7 +42,7 @@ class _InitMobilePageState extends State<InitMobilePage>
                 SliverToBoxAdapter(
                     child: Container(
                         padding: EdgeInsets.all(10),
-                        color: AppThemeUtils.colorPrimary40,
+                        color: AppThemeUtils.colorSecundary40,
                         child: Text(
                           StringFile.postFix,
                           style: AppThemeUtils.normalBoldSize(fontSize: 16),

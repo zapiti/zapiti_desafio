@@ -5,21 +5,14 @@ import 'package:zapiti_desafio/app/image/image_path.dart';
 class MyUser {
   String uid;
   String name;
-
   String profile_picture;
-
   String phone;
-
   String email;
-
-
 
   MyUser({this.uid, this.name, this.profile_picture, this.phone, this.email});
 
   factory MyUser.fromMap(dynamic map) {
     if (null == map) return null;
-
-    var temp;
     return MyUser(
       uid: (map['uid']).toString(),
       name: ((map['name'].toString().isEmpty || map['name'] == null)

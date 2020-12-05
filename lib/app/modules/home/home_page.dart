@@ -1,19 +1,17 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_modular/flutter_modular_test.dart';
+
+import 'package:uuid/uuid.dart';
 import 'package:zapiti_desafio/app/component/bottom_navigator/my_custom_buttom.dart';
 import 'package:zapiti_desafio/app/component/dialog/dialog_generic.dart';
-import 'package:zapiti_desafio/app/component/dialog/dialog_generic_calendar.dart';
+
 import 'package:zapiti_desafio/app/component/external_lib/flutter_speed_dial_material_design.dart';
 import 'package:zapiti_desafio/app/modules/home/home_bloc.dart';
 import 'package:zapiti_desafio/app/modules/home/modules/profile/profile_bloc.dart';
 import 'package:zapiti_desafio/app/modules/login/login_bloc.dart';
-import 'package:zapiti_desafio/app/modules/login/login_module.dart';
-import 'package:zapiti_desafio/app/routes/constants_routes.dart';
+
 import 'package:zapiti_desafio/app/utils/string/string_file.dart';
 import 'package:zapiti_desafio/app/utils/theme/app_theme_utils.dart';
 
@@ -89,7 +87,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               topLeft: Radius.circular(28.0),
               topRight: Radius.zero,
               bottomLeft: Radius.zero,
-              // bottomRight: Radius.circular(28.0),
             ),
             child: BottomAppBar(
               clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -108,8 +105,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 icon: Icons.home,
                                 onTap: () {
                                   _tabController.animateTo(0);
-
-                                  // Modular.to.pushNamed(ConstantsRoutes.INIT);
                                 },
                                 text: "Início",
                                 selected: snapshot.data == 0),
@@ -117,8 +112,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 icon: Icons.person,
                                 onTap: () {
                                   _tabController.animateTo(1);
-
-                                  //  Modular.to.pushNamed(ConstantsRoutes.PROFILE);
                                 },
                                 text: "Perfil",
                                 selected: snapshot.data == 1),
@@ -145,8 +138,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         TextStyle(inherit: false, color: Colors.black);
     var icons = [
       SpeedDialAction(
-          //backgroundColor: Colors.green,
-          //foregroundColor: Colors.yellow,
           child: Icon(Icons.mode_edit),
           label: Text('Criar postagem', style: customStyle)),
       SpeedDialAction(
@@ -164,7 +155,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 : snapshot.data == 1
                     ? Container(
                         child: FloatingActionButton(
-                          heroTag: "9898",
+                          heroTag: Uuid().v4(),
                           backgroundColor: AppThemeUtils.whiteColor,
                           child: Icon(
                             Icons.edit,
@@ -193,10 +184,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               homeBloc.creatPostOrEdit(context);
                             }
                           },
-                          // controller: _tabController,
+
                           isDismissible: true,
-                          //backgroundColor: Colors.yellow,
-                          //foregroundColor: Colors.blue,
                         )));
   }
 
@@ -213,61 +202,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return null;
   }
 
-  //Ids dos banner do ADMob
-  final bannerAdIdAndroid = "ca-app-pub-5954339580493142/2212672162";
-  final bannerAdIdIos =
-      "ca-app-pub-5954339580493142/2212672162"; //TODO: Ver isso
-  String getBannerId() => Platform.isIOS ? bannerAdIdIos : bannerAdIdAndroid;
-
-//  BannerAd myBanner;
-
   @override
   void dispose() {
-    // myBanner?.dispose();
-
     super.dispose();
   }
-
-// @override
-// void initState() {
-//   super.initState();
-//   // FirebaseAdMob.instance.initialize(appId: getBannerId());
-//   //
-//   // startBanner();
-//   // displayBanner();
-// }
-
-// // Configuração dos banners que deverão ser exibido
-// MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
-//   keywords: <String>['flutterio', 'beautiful apps'],
-//   contentUrl: 'https://flutter.io',
-//   childDirected: false,
-//   testDevices: <String>[],
-// );
-
-// void startBanner() {
-//   myBanner = BannerAd(
-//     adUnitId: BannerAd.testAdUnitId,
-//     size: AdSize.banner,
-//     targetingInfo: targetingInfo,
-//     listener: (MobileAdEvent event) {
-//       print("BannerAd event is $event");
-//     },
-//   );
-// }
-//
-// void displayBanner() {
-//   myBanner = buildBannerAd()..load();
-// }
-
-// BannerAd buildBannerAd() {
-//   return BannerAd(
-//       adUnitId: BannerAd.testAdUnitId,
-//       size: AdSize.banner,
-//       listener: (MobileAdEvent event) {
-//         if (event == MobileAdEvent.loaded) {
-//           myBanner..show(anchorType: AnchorType.bottom, anchorOffset: 50);
-//         }
-//       });
-// }
 }
