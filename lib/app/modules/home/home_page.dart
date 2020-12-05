@@ -2,15 +2,19 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:zapiti_desafio/app/component/bottom_navigator/my_custom_buttom.dart';
+import 'package:zapiti_desafio/app/component/dialog/dialog_generic.dart';
 import 'package:zapiti_desafio/app/component/dialog/dialog_generic_calendar.dart';
 import 'package:zapiti_desafio/app/component/external_lib/flutter_speed_dial_material_design.dart';
 import 'package:zapiti_desafio/app/modules/home/home_bloc.dart';
+import 'package:zapiti_desafio/app/modules/home/modules/profile/profile_bloc.dart';
 import 'package:zapiti_desafio/app/modules/login/login_bloc.dart';
 import 'package:zapiti_desafio/app/modules/login/login_module.dart';
 import 'package:zapiti_desafio/app/routes/constants_routes.dart';
+import 'package:zapiti_desafio/app/utils/string/string_file.dart';
 import 'package:zapiti_desafio/app/utils/theme/app_theme_utils.dart';
 
 import 'modules/init/init_module.dart';
@@ -28,17 +32,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   TabController _tabController;
   var homeBloc = Modular.get<HomeBloc>();
+  var profileBloc = Modular.get<ProfileBloc>();
 
-  final GlobalKey<NavigatorState> _timelineTabNavKey =
+  final GlobalKey<NavigatorState> _profileTabNavKey =
       GlobalKey<NavigatorState>();
-  final GlobalKey<NavigatorState> _pointTabNavKey = GlobalKey<NavigatorState>();
-  final GlobalKey<NavigatorState> _hollerithTabNavKey =
-      GlobalKey<NavigatorState>();
-  final GlobalKey<NavigatorState> _menuTabNavKey = GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> _homeTabNavKey = GlobalKey<NavigatorState>();
 
   void initState() {
-    _tabController = TabController(length: 2, vsync: this, initialIndex: 0);
     super.initState();
+    _tabController = TabController(length: 2, vsync: this, initialIndex: 0);
+
+    profileBloc.getUserInfo();
     _tabController.addListener(() {
       homeBloc.selectedMenu.sink.add(_tabController.index);
     });
@@ -51,32 +55,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         if (currentNavigatorKey().currentState.canPop()) {
           return !await currentNavigatorKey().currentState.maybePop();
         } else {
-          return await showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (BuildContext context) {
-                    return CupertinoAlertDialog(
-                      title: Text("Fechar o aplicativo?"),
-                      actions: [
-                        CupertinoButton(
-                          child: Text("Não"),
-                          onPressed: () {
-                            Navigator.of(context).pop(false);
-                          },
-                        ),
-                        CupertinoButton(
-                          child: Text(
-                            "Sim",
-                            style: TextStyle(color: CupertinoColors.systemRed),
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).pop(true);
-                          },
-                        )
-                      ],
-                    );
-                  }) ??
-              false;
+          return await showGenericDialog(
+              context: context,
+              title: StringFile.atencao,
+              description: StringFile.desejaFechar,
+              iconData: Icons.error_outline,
+              negativeCallback: () {},
+              positiveCallback: () {
+                SystemNavigator.pop();
+              },
+              positiveText: StringFile.sim);
+          return false;
         }
       },
       child: Scaffold(
@@ -86,11 +75,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             children: [
               RouterOutlet(
                 module: InitModule(),
-                navigatorKey: _hollerithTabNavKey,
+                navigatorKey: _homeTabNavKey,
               ),
               RouterOutlet(
                 module: ProfileModule(),
-                navigatorKey: _hollerithTabNavKey,
+                navigatorKey: _profileTabNavKey,
               ),
             ]),
         floatingActionButton: _buildFloatingActionButton(),
@@ -106,7 +95,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               clipBehavior: Clip.antiAliasWithSaveLayer,
               shape: CircularNotchedRectangle(),
               child: Container(
-                height: 75.0,
+                height: 70.0,
                 color: AppThemeUtils.colorPrimary,
                 child: StreamBuilder<int>(
                     stream: homeBloc.selectedMenu,
@@ -119,7 +108,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 icon: Icons.home,
                                 onTap: () {
                                   _tabController.animateTo(0);
-                              
+
                                   // Modular.to.pushNamed(ConstantsRoutes.INIT);
                                 },
                                 text: "Início",
@@ -154,7 +143,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget _buildFloatingActionButton() {
     final TextStyle customStyle =
         TextStyle(inherit: false, color: Colors.black);
-    final icons = [
+    var icons = [
       SpeedDialAction(
           //backgroundColor: Colors.green,
           //foregroundColor: Colors.yellow,
@@ -166,43 +155,58 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
     ];
 
-    return Container(
-        margin: EdgeInsets.only(bottom: 15),
-        child: SpeedDialFloatingActionButton(
-          actions: icons,
-          backgroundColor: AppThemeUtils.colorPrimary,
-          childOnFold: Icon(Icons.add, key: UniqueKey()),
-          screenColor: Colors.black.withOpacity(0.3),
-          //childOnUnfold: Icon(Icons.add),
-          useRotateAnimation: false,
-          onAction: (i) {
-            if (i == 1) {
-              showGenericDialogCalendar(
-                  context: context, selectedDay: DateTime.now());
-            } else {
-              homeBloc.creatPost(context);
-            }
-          },
-          // controller: _tabController,
-          isDismissible: true,
-          //backgroundColor: Colors.yellow,
-          //foregroundColor: Colors.blue,
-        ));
+    return StreamBuilder<int>(
+        stream: homeBloc.selectedMenu,
+        initialData: 0,
+        builder: (context, snapshot) =>
+            MediaQuery.of(context).viewInsets.bottom != 0
+                ? Container()
+                : snapshot.data == 1
+                    ? Container(
+                        child: FloatingActionButton(
+                          heroTag: "9898",
+                          backgroundColor: AppThemeUtils.whiteColor,
+                          child: Icon(
+                            Icons.edit,
+                            color: AppThemeUtils.colorSecundary,
+                          ),
+                          onPressed: () {
+                            var profileBloc = Modular.get<ProfileBloc>();
+
+                            profileBloc.editProfile(context);
+                          },
+                        ),
+                      )
+                    : Container(
+                        margin: EdgeInsets.only(bottom: 0),
+                        child: SpeedDialFloatingActionButton(
+                          actions: icons,
+                          backgroundColor: AppThemeUtils.colorPrimary,
+                          childOnFold: Icon(Icons.add, key: UniqueKey()),
+                          screenColor: Colors.black.withOpacity(0.3),
+                          //childOnUnfold: Icon(Icons.add),
+                          useRotateAnimation: false,
+                          onAction: (i) {
+                            if (i == 1) {
+                              homeBloc.filterPost(context);
+                            } else {
+                              homeBloc.creatPostOrEdit(context);
+                            }
+                          },
+                          // controller: _tabController,
+                          isDismissible: true,
+                          //backgroundColor: Colors.yellow,
+                          //foregroundColor: Colors.blue,
+                        )));
   }
 
   GlobalKey<NavigatorState> currentNavigatorKey() {
     switch (_tabController.index) {
       case 0:
-        return _timelineTabNavKey;
+        return _homeTabNavKey;
         break;
       case 1:
-        return _pointTabNavKey;
-        break;
-      case 2:
-        return _hollerithTabNavKey;
-        break;
-      case 3:
-        return _menuTabNavKey;
+        return _homeTabNavKey;
         break;
     }
 

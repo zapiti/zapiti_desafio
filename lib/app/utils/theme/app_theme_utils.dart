@@ -54,7 +54,8 @@ class AppThemeUtils {
   static Color colorTerciaria = HexColor("964015");
   static Color black = HexColor("313534");
   static Color colorPrimary80 = HexColor("CCD81347");
-  static Color colorPrimary40 = HexColor("66D81347");
+  static Color colorPrimary40 = HexColor("66FFDE00");
+  //static Color colorPrimary40 = HexColor("66D81347");
   static Color darkGray = HexColor("838685");
 
   static Color colorsGrey = HexColor("F4F5F5");

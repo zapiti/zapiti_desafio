@@ -34,7 +34,7 @@ class _AnimatedSplashState extends State<AnimatedSplash>
   AnimationController _animationController;
   Animation _animation;
   Timer _timer;
-  int _start = 7;
+  int _start = 5;
 
   @override
   void initState() {

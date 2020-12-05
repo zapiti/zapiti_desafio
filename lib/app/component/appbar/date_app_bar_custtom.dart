@@ -4,6 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:zapiti_desafio/app/app_bloc.dart';
 import 'package:zapiti_desafio/app/component/date/select_day.dart';
 import 'package:zapiti_desafio/app/component/dialog/dialog_date_time.dart';
+import 'package:zapiti_desafio/app/component/dialog/dialog_generic.dart';
+import 'package:zapiti_desafio/app/modules/home/modules/chat/chat_page.dart';
+import 'package:zapiti_desafio/app/modules/home/modules/chat/widget/chat/chat_perspective.dart';
+import 'package:zapiti_desafio/app/utils/string/string_file.dart';
 import 'package:zapiti_desafio/app/utils/theme/app_theme_utils.dart';
 
 class DateAppBarCustom extends StatelessWidget {
@@ -33,7 +37,7 @@ class DateAppBarCustom extends StatelessWidget {
                       topLeft: Radius.zero,
                       topRight: Radius.zero,
                       bottomLeft: Radius.zero,
-                     bottomRight: Radius.circular(28.0),
+                      bottomRight: Radius.circular(28.0),
                     ),
                   ),
                   child: Row(
@@ -46,47 +50,56 @@ class DateAppBarCustom extends StatelessWidget {
                               dateTime: snapshot.data)),
                       Expanded(
                           child: selectDay(
-                                  context: context,
-                                  text: "S",
-                                  selected:
-                                      selectedDate(snapshot.data, "segunda"),
-                                  dateTime: snapshot.data)),
-                      Expanded(
-                          child:  selectDay(
-                                  context: context,
-                                  text: "T",
-                                  selected:
-                                      selectedDate(snapshot.data, "terça"),
-                                  dateTime: snapshot.data)),
+                              context: context,
+                              text: "S",
+                              selected: selectedDate(snapshot.data, "segunda"),
+                              dateTime: snapshot.data)),
                       Expanded(
                           child: selectDay(
-                                  context: context,
-                                  text: "Q",
-                                  selected:
-                                      selectedDate(snapshot.data, "quarta"),
-                                  dateTime: snapshot.data)),
-                      Expanded(
-                          child:  selectDay(
-                                  context: context,
-                                  text: "Q",
-                                  selected:
-                                      selectedDate(snapshot.data, "quinta"),
-                                  dateTime: snapshot.data)),
+                              context: context,
+                              text: "T",
+                              selected: selectedDate(snapshot.data, "terça"),
+                              dateTime: snapshot.data)),
                       Expanded(
                           child: selectDay(
-                                  context: context,
-                                  text: "S",
-                                  selected:
-                                      selectedDate(snapshot.data, "sábado"),
-                                  dateTime: snapshot.data)),
+                              context: context,
+                              text: "Q",
+                              selected: selectedDate(snapshot.data, "quarta"),
+                              dateTime: snapshot.data)),
                       Expanded(
-                          child: Container(
-                        width: 120,
-                        height: 120,
-                        margin: EdgeInsets.symmetric(horizontal: 5),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Color(0xFFe0f2f1)),
-                      ))
+                          child: selectDay(
+                              context: context,
+                              text: "Q",
+                              selected: selectedDate(snapshot.data, "quinta"),
+                              dateTime: snapshot.data)),
+                      Expanded(
+                          child: selectDay(
+                              context: context,
+                              text: "S",
+                              selected: selectedDate(snapshot.data, "sábado"),
+                              dateTime: snapshot.data)),
+                      Expanded(
+                          child: InkWell(
+                              onTap: () {
+                                showGenericDialog(
+                                    context: context,
+                                    title: "ALOOOO!",
+                                    description: "Este e um aplicativo de exemplo simples ainda temos muito a construir em hehehe (^_-)≡☆",
+                                    iconData: Icons.call,
+                                    positiveCallback: () {
+                                      FocusScope.of(context).requestFocus(FocusNode());
+                                    },
+                                    positiveText: StringFile.ok);
+                              },
+                              child: Container(
+                                width: 120,
+                                height: 120,
+                                child: Icon(Icons.error_outline),
+                                margin: EdgeInsets.symmetric(horizontal: 5),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: AppThemeUtils.colorSecundary),
+                              )))
                     ],
                   ),
                 )));

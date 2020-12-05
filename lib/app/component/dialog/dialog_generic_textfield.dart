@@ -6,8 +6,6 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:zapiti_desafio/app/utils/string/string_file.dart';
 import 'package:zapiti_desafio/app/utils/theme/app_theme_utils.dart';
 
-
-
 var _isOpen = false;
 
 void showTextFieldGenericDialog(
@@ -25,25 +23,25 @@ void showTextFieldGenericDialog(
     IconData icon,
     String erroText,
     int minSize}) {
-  controller.text = "";
+
   if (!_isOpen) {
-   showDialog(
+    showDialog(
         context: context,
-       builder: (BuildContext context)  =>  _DialogGeneric(
-          positiveCallback: positiveCallback,
-          negativeCallback: negativeCallback,
-          icon: icon,
-          controller: controller,
-          masterTitle: maxTitle,
-          inputFormatters: inputFormatters,
-          lines: lines,
-          hintText: hintText,
-          minSize: minSize,
-          erroText: erroText,
-          keyboardType: keyboardType,
-          title: title,
-          positiveText: positiveText,
-        ));
+        builder: (BuildContext context) => _DialogGeneric(
+              positiveCallback: positiveCallback,
+              negativeCallback: negativeCallback,
+              icon: icon,
+              controller: controller,
+              masterTitle: maxTitle,
+              inputFormatters: inputFormatters,
+              lines: lines,
+              hintText: hintText,
+              minSize: minSize,
+              erroText: erroText,
+              keyboardType: keyboardType,
+              title: title,
+              positiveText: positiveText,
+            ));
   } else {
     _isOpen = true;
   }
@@ -94,8 +92,8 @@ class __DialogGenericState extends State<_DialogGeneric> {
                 width: MediaQuery.of(context).size.width > 450
                     ? 400
                     : MediaQuery.of(context).size.width * 0.8,
-    padding: EdgeInsets.only(
-                   bottom: MediaQuery.of(context).viewInsets.bottom),
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: Material(
                     color: Colors.transparent,
                     child: Container(
@@ -147,8 +145,7 @@ class __DialogGenericState extends State<_DialogGeneric> {
                                             margin: EdgeInsets.only(
                                                 top: 20, bottom: 20, left: 3),
                                             child: Text(
-                                              widget.masterTitle ??
-                                                  "Eba",
+                                              widget.masterTitle ?? "Eba",
                                               style:
                                                   AppThemeUtils.normalBoldSize(
                                                       color: AppThemeUtils
@@ -231,7 +228,8 @@ class __DialogGenericState extends State<_DialogGeneric> {
                                                             top: 5),
                                                         child: Container(
                                                           child: RaisedButton(
-                                                            color: Colors.grey[400],
+                                                            color: Colors
+                                                                .grey[400],
                                                             elevation: 0,
                                                             onPressed: () {
                                                               Navigator.of(
@@ -252,7 +250,9 @@ class __DialogGenericState extends State<_DialogGeneric> {
                                                                         .circular(
                                                                             8)),
                                                                 side: BorderSide(
-                                                                    color: Colors.grey[400],
+                                                                    color: Colors
+                                                                            .grey[
+                                                                        400],
                                                                     width: 1)),
                                                           ),
                                                         )))),
@@ -276,6 +276,7 @@ class __DialogGenericState extends State<_DialogGeneric> {
                                                                 null) {
                                                               widget
                                                                   .positiveCallback();
+                                                              Navigator.of(context).pop();
                                                             } else {
                                                               if (widget
                                                                       .minSize <
@@ -285,6 +286,7 @@ class __DialogGenericState extends State<_DialogGeneric> {
                                                                       .length) {
                                                                 widget
                                                                     .positiveCallback();
+                                                                Navigator.of(context).pop();
                                                               } else {
                                                                 setState(() {
                                                                   error = widget
@@ -294,7 +296,8 @@ class __DialogGenericState extends State<_DialogGeneric> {
                                                             }
                                                           },
                                                           child: AutoSizeText(
-                                                           widget. positiveText ??"Confirmar",
+                                                            widget.positiveText ??
+                                                                "Confirmar",
                                                             maxLines: 1,
                                                             style: AppThemeUtils
                                                                 .normalBoldSize(

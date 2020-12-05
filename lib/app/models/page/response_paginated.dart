@@ -10,7 +10,7 @@ class ResponsePaginated<T> {
     var temp;
     return ResponsePaginated(
       content: map,
-      error: map['error']?.toString(),
+      error: null,
     );
   }
 }

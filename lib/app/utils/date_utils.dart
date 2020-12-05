@@ -10,7 +10,14 @@ class DateUtils {
       } else {
         DateTime now = DateTime.now();
         if (date is String) {
-          now = DateTime.parse(date);
+          var dateTotal = getDateFormate(date);
+          if(dateTotal == null){
+            now = DateTime.parse(date);
+          }else{
+            DateTime tempDate = new DateFormat(dateTotal).parse(date);
+            now = tempDate;
+          }
+
         } else {
           now = date;
         }
@@ -52,5 +59,13 @@ class DateUtils {
         ? date2.difference(dateInitial).inDays
         : date2.difference(dateInitial).inMinutes;
     return difference;
+  }
+}
+
+String getDateFormate(String date) {
+  if(date.contains("-")&& date.contains(":") && (!date.contains("Z"))){
+    return "dd-MM-yyyy HH:mm";
+  }else{
+    return null;
   }
 }

@@ -56,7 +56,7 @@ class _LogInPageState extends State<LogInPage> {
                                   AsyncSnapshot<dynamic> snapshotHide) {
                                 return CustomGreyTextField(
                                   enabled: !_isLoadRequest,
-                                  obscureText: snapshot.data,
+                                  obscureText: snapshotHide.data,
                                   labelText: "Senha",errorText:snapshotPass.data,onChanged:(text){
                                   bloc.erroPassView.sink.add(null);
                                 },

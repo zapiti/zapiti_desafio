@@ -10,7 +10,7 @@ class ApiClient {
 
   ///Configura a otilizacao da api para fazer requisicao
   Future<Dio> getApiClient() async {
-    var token = await _authToken.getToken();
+
     var baseUrl = await AppConfiguration.baseUrl();
 
     _dio.interceptors.clear();
@@ -18,7 +18,7 @@ class ApiClient {
     _dio.interceptors
         .add(InterceptorsWrapper(onRequest: (RequestOptions options) {
       // Do something before request is sent
-      var header = getHeaderToken(token: token);
+      var header = getHeaderToken(token: null);
       options.headers = header;
       options.baseUrl = baseUrl;
       options.connectTimeout = 50 * 1000; // 60 seconds

@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:zapiti_desafio/app/core/request_core.dart';
 import 'package:zapiti_desafio/app/modules/home/modules/init/init_module.dart';
+import 'package:zapiti_desafio/app/modules/home/modules/profile/profile_bloc.dart';
 import 'package:zapiti_desafio/app/modules/home/modules/profile/profile_module.dart';
 import 'package:zapiti_desafio/app/modules/login/modules/recovery_pass/recovery_pass_module.dart';
 
@@ -24,8 +26,10 @@ class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
         Bind((i) => AppBloc()),
+        Bind((i) => RequestCore()),
         Bind((i) => LocalDataStore()),
         Bind((i) => LoginBloc()),
+        Bind((i) => ProfileBloc()),
         Bind((i) => AuthRepository()),
         Bind((i) => Dio())
       ];
@@ -45,7 +49,6 @@ class AppModule extends MainModule {
             module: LoginModule(), guards: [RouterLoginGuard()]),
         ModularRouter(ConstantsRoutes.LOGIN_PAGE, module: LogInModule()),
         ModularRouter(ConstantsRoutes.REGISTRE_PAGE, module: RegisterModule()),
-
         ModularRouter(ConstantsRoutes.RECOVERYPASS,
             module: RecoveryPassModule()),
       ];

@@ -5,7 +5,7 @@ import 'package:zapiti_desafio/app/utils/string/string_file.dart';
 import 'package:zapiti_desafio/app/utils/theme/app_theme_utils.dart';
 
 
-void showGenericDialog(
+Future<bool> showGenericDialog(
     {IconData iconData,
     BuildContext context,
     String title,
@@ -20,9 +20,9 @@ void showGenericDialog(
     bool isLight = false,
     bool containsPop = true,
     String imagePath,
-    Color topColor}) {
+    Color topColor}) async {
   // FocusScope.of(context).requestFocus(FocusNode());
-  showDialog(
+  return await showDialog(
       context: context,
       builder: (BuildContext context)  => _DialogGeneric(
           iconData: iconData,
@@ -478,7 +478,7 @@ class WidgetDialogGeneric extends StatelessWidget {
                                                 : Expanded(
                                                     child: Center(
                                                     child: Container(
-
+                                                        height: 40,
                                                         width: 200,
                                                         margin: EdgeInsets.only(
                                                             right: 10,
@@ -534,6 +534,7 @@ class WidgetDialogGeneric extends StatelessWidget {
                                                 : Expanded(
                                                     child: Center(
                                                     child: Container(
+                                                      height: 40,
 
                                                         width: 200,
                                                         margin: EdgeInsets.only(

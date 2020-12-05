@@ -5,25 +5,24 @@ import 'package:get_it/get_it.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:zapiti_desafio/app/utils/theme/app_theme_utils.dart';
 
-import 'models/current_user.dart';
+import 'modules/home/modules/init/model/user.dart';
 
 class AppBloc extends Disposable {
-  final currentUserSubject = BehaviorSubject<CurrentUser>();
+  final currentUserSubject = BehaviorSubject<MyUser>();
   var anonimoUserSubject = BehaviorSubject<bool>.seeded(false);
   var dateSelectedSubject = BehaviorSubject<DateTime>.seeded(DateTime.now());
 
-
-  CurrentUser getCurrentUserValue() {
+  MyUser getCurrentUserValue() {
     FirebaseAuth auth = GetIt.I.get<FirebaseAuth>();
     final localUser = auth.currentUser;
-    CurrentUser user;
+    MyUser user = currentUserSubject.stream.value ?? MyUser();
 
     final anonimo = anonimoUserSubject.stream.value;
 
     if (localUser != null || anonimo) {
-      user = CurrentUser();
-      user.name = localUser.displayName ?? localUser.email ?? "Anônimo";
-      user.id = localUser.uid;
+      user = MyUser();
+      user.name = localUser?.displayName ?? localUser?.email ?? "Anônimo";
+      user.uid = localUser?.uid;
       currentUserSubject.sink.add(user);
     } else {
       user = null;
@@ -40,16 +39,15 @@ class AppBloc extends Disposable {
     dateSelectedSubject.close();
   }
 
-  Future<CurrentUser> getCurrentUserFutureValue() async {
+  Future<MyUser> getCurrentUserFutureValue() async {
     FirebaseAuth auth = GetIt.I.get<FirebaseAuth>();
     final localUser = auth.currentUser;
-    CurrentUser user;
+    MyUser user = currentUserSubject.stream.value ?? MyUser();
     final anonimo = anonimoUserSubject.stream.value;
 
     if (localUser != null || anonimo) {
-      user = CurrentUser();
-      user.name = localUser.displayName ?? localUser.email ?? "Anônimo";
-      user.id = localUser.uid;
+      user.name = localUser?.displayName ?? localUser?.email ?? "Anônimo";
+      user.uid = localUser?.uid;
       currentUserSubject.sink.add(user);
     } else {
       user = null;

@@ -1,3 +1,4 @@
+import 'package:zapiti_desafio/app/core/request_core.dart';
 import 'package:zapiti_desafio/app/models/code_response.dart';
 import 'package:zapiti_desafio/app/models/page/response_paginated.dart';
 import 'package:zapiti_desafio/app/utils/object/object_utils.dart';
@@ -44,20 +45,21 @@ class ResponseUtils {
         listElementGeneric.add(order);
       }
     }
-    return ResponsePaginated.fromMap(response?.sucess);
+    return ResponsePaginated.fromMap(listElementGeneric);
   }
 
   ///***@response e a resposta do servidor e @funcFromMap converte a resposta do servidor em algo
   static ResponsePaginated getResponsePaginatedObject<T>(
       CodeResponse response, Function funcFromMap,
-      {bool isObject = true, String namedResponse, int status}) {
-    if (!isObject) {
+      {TYPERESPONSE isObject , String namedResponse}) {
+    if (isObject == TYPERESPONSE.LIST) {
       return getResponsePaginated(response, funcFromMap,
-          namedResponse: namedResponse, status: status);
+          namedResponse: namedResponse);
     } else {
       if (response?.sucess == null || response.error != null) {
         return ResponsePaginated(
-            error: response.error ?? "Sem resposta do servidor!");
+            error: response.error ?? "Falha ao carregar dados",
+        );
       }
       var tempResp = namedResponse != null
           ? response?.sucess[namedResponse]

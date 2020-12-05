@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get_it/get_it.dart';
 import 'package:zapiti_desafio/app/image/image_logo_widget.dart';
 import 'package:zapiti_desafio/app/modules/login/login_bloc.dart';
 import 'package:zapiti_desafio/app/routes/constants_routes.dart';
@@ -9,9 +12,10 @@ import 'package:zapiti_desafio/app/utils/theme/app_theme_utils.dart';
 import '../../app_bloc.dart';
 
 class LoginPage extends StatefulWidget {
-  final String title;
+  var isLogin = true;
+  LoginPage(this.isLogin);
 
-  const LoginPage({Key key, this.title = "Login"}) : super(key: key);
+
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -19,6 +23,17 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   var bloc = Modular.get<LoginBloc>();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if(widget.isLogin == true){
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+
+        Modular.to.pushNamed(ConstantsRoutes.LOGIN_PAGE);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +52,11 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.only(bottom: 15),
               ),
               Text(
-                "Olá pessoa!",
+                "Olá, pessoa!",
                 style: AppThemeUtils.normalSize(fontSize: 30),
               ),
               Text(
-                "Entre para acessar o desafio criado por mim para validar algumas coisinhas!",
+                "Entre para acessar o desafio criado para validar algumas coisinhas!😉",
                 style: AppThemeUtils.normalSize(),
                 textAlign: TextAlign.center,
               ),
@@ -111,9 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                           color: AppThemeUtils.whiteColor),
                     ),
                     onPressed: () {
-                      var appBloc = Modular.get<AppBloc>();
-                      appBloc.anonimoUserSubject.sink.add(true);
-                      Modular.to.pushNamed(ConstantsRoutes.HOMEPAGE);
+                   bloc.loginAnonimus();
                     },
                   ),
                 ),

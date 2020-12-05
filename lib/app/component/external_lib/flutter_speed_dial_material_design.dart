@@ -65,7 +65,9 @@ class SpeedDialFloatingActionButton extends StatelessWidget {
           labelPosition: labelPosition,
         );
       },
-      child: FloatingActionButton(backgroundColor: Colors.transparent,elevation: 0,
+      child: FloatingActionButton(
+          heroTag: "159",
+          backgroundColor: Colors.transparent,elevation: 0,
           onPressed: () {}),
     );
   }
@@ -284,6 +286,7 @@ class _SpeedDialState extends State<SpeedDial> with TickerProviderStateMixin {
               curve: Curves.linear),
         ),
         child: FloatingActionButton(
+          heroTag: "15",
           backgroundColor: backgroundColor,
           foregroundColor: foregroundColor,
           mini: true,
@@ -296,6 +299,7 @@ class _SpeedDialState extends State<SpeedDial> with TickerProviderStateMixin {
 
   Widget _buildFab() {
     return FloatingActionButton(
+      heroTag: "515",
       onPressed: toggle,
       backgroundColor: widget.backgroundColor,
       foregroundColor: widget.foregroundColor,

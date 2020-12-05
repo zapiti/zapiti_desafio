@@ -12,13 +12,9 @@ import 'package:zapiti_desafio/app/utils/string/string_file.dart';
 import 'client/api_client.dart';
 
 enum TYPEREQUEST { PATCH, POST, PUT, GET, DELETE }
+enum TYPERESPONSE { OBJECT, LIST }
 
 class RequestCore {
-  static const TYPE_GET = "GET";
-  static const TYPE_POST = "POST";
-  static const TYPE_PUT = "PUT";
-  static const showBody = true;
-
   ///@serviceName e o nome do servico chamado
   ///@funcFromMap e conversao da sua funcao para algo que voce quer
   ///@body e o corpo da requisicao
@@ -30,6 +26,7 @@ class RequestCore {
       {@required serviceName,
       @required funcFromMap,
       dynamic body,
+      typeResponse: TYPERESPONSE.OBJECT,
       @required TYPEREQUEST typeRequest,
       String namedResponse,
       bool isImage = false,
@@ -142,37 +139,32 @@ class RequestCore {
           print("Current status code: $statusCode");
 
           print(
-              "##RETORNO-SERVICO(${typeRequest.toString()}) = $serviceName body = ${showBody ? response?.data : {}}");
+              "##RETORNO-SERVICO(${typeRequest.toString()}) = $serviceName body = ${body ?? response?.data ?? {}}");
           if (statusCode == 200 || statusCode == 201 || statusCode == 202) {
             return ResponseUtils.getResponsePaginatedObject(
                 CodeResponse(
-                    sucess: response?.data.toString().contains("content")
-                        ? response?.data['content']
-                        : response?.data),
+                    sucess:  response?.data),
                 funcFromMap,
-                namedResponse: namedResponse,
-                status: response?.statusCode);
+                isObject: typeResponse,
+                namedResponse: namedResponse);
           } else {
             return ResponseUtils.getResponsePaginatedObject(
-                CodeResponse(error: response), funcFromMap,
-                status: response?.statusCode);
+                CodeResponse(error: response), funcFromMap);
           }
         } on DioError catch (e) {
           print(
-              "***RETORNO-SERVICO (Erro)(${typeRequest.toString()}) = $serviceName body = ${showBody ? e.response : {}}");
+              "***RETORNO-SERVICO (Erro)(${typeRequest.toString()}) = $serviceName body = ${body ?? e.response ?? {}}");
 
           var msg =
               ResponseUtils.getErrorBody(serviceName, body, e.response?.data);
           return ResponseUtils.getResponsePaginatedObject(
-              CodeResponse(error: msg), funcFromMap,
-              status: e?.response?.statusCode);
+              CodeResponse(error: msg), funcFromMap);
         } on Exception catch (e) {
           var msg =
               ResponseUtils.getErrorBody(serviceName, body, e?.toString()) ??
                   "Sem descrição de erro";
           return ResponseUtils.getResponsePaginatedObject(
-              CodeResponse(error: msg), funcFromMap,
-              status: 500);
+              CodeResponse(error: msg), funcFromMap);
         }
       }
     }

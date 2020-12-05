@@ -5,7 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flux_validator_dart/flux_validator_dart.dart';
 import 'package:get_it/get_it.dart';
 import 'package:zapiti_desafio/app/component/dialog/dialog_generic.dart';
-import 'package:zapiti_desafio/app/models/user_entity.dart';
+
 import 'package:zapiti_desafio/app/routes/constants_routes.dart';
 import 'package:zapiti_desafio/app/utils/preferences/cd_preferences.dart';
 import 'package:zapiti_desafio/app/utils/preferences/local_data_store.dart';
@@ -107,12 +107,13 @@ class LoginBloc extends Disposable {
     erroPassView.drain();
   }
 
-  void getLogout() {
+  void getLogout({bool goToLogin}) {
     FirebaseAuth auth = GetIt.I.get<FirebaseAuth>();
     _bloc.anonimoUserSubject.sink.add(false);
     auth.signOut().then((value) {
       storage.clear().then((value) {
-        Modular.to.pushReplacementNamed(ConstantsRoutes.LOGIN);
+
+        Modular.to.pushReplacementNamed(ConstantsRoutes.LOGIN,arguments: goToLogin);
       });
     });
   }
@@ -146,5 +147,13 @@ class LoginBloc extends Disposable {
       }
     }
 
+  }
+
+  void loginAnonimus  () {
+
+    _bloc.anonimoUserSubject.sink.add(true);
+    FirebaseAuth auth = GetIt.I.get<FirebaseAuth>();
+    auth.signInAnonymously();
+    Modular.to.pushNamed(ConstantsRoutes.HOMEPAGE);
   }
 }
