@@ -6,12 +6,16 @@ import 'package:get_it/get_it.dart';
 import 'package:zapiti_desafio/app/app_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import 'app/modules/home/modules/init/core/crash/sentry.dart';
+
 void main() {
   setupSingletons();
   WidgetsFlutterBinding.ensureInitialized();
-
-  Firebase.initializeApp().then((v) {
-    runApp(ModularApp(module: AppModule()));
+  ///rastreia os erros acontecidos na aplicacao
+  runSentry(() async {
+    Firebase.initializeApp().then((v) {
+      runApp(ModularApp(module: AppModule()));
+    });
   });
 }
 GetIt locator = GetIt.instance;

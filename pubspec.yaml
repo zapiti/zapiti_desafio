@@ -21,6 +21,9 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  cloud_firestore_mocks: ^0.5.2+1
+  sentry: ^3.0.1
+  device_info: ^1.0.0
   font_awesome_flutter: ^8.10.0
   uuid: ^2.2.2
   cached_network_image: ^2.4.1

@@ -29,8 +29,8 @@ class MyUser {
     final appBloc = Modular.get<AppBloc>();
     final uid2 = appBloc.getCurrentUserValue();
     return {
-      'uid': uid2.uid.toString(),
-      'name': uid2.name,
+      'uid': uid2?.uid.toString(),
+      'name': uid2?.name,
       'profile_picture': profile_picture ?? ImagePath.radom(0),
       'phone': phone,
       'email': email,
