@@ -16,7 +16,7 @@ https://pub.dev/packages/flutter_modular
 
 ## Download & instalação
 
-First, clone the repository with the 'clone' command, or just download the zip.
+Clone o repositório com o comando 'git clone' ou apenas baixe o zip.
 
 ```
 $ git clone git@github.com:zapiti/zapiti_desafio.git
