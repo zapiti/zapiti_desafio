@@ -25,9 +25,9 @@ $ git clone git@github.com:zapiti/zapiti_desafio.git
 Em seguida, baixe o Android Studio ou o Visual Studio Code, com seus respectivos [plug-ins do editor Flutter] (https://flutter.io/get-started/editor/). Para obter mais informações sobre o procedimento de instalação do Flutter, verifique o [guia oficial de instalação] (https://flutter.io/get-started/install/).
 
 Habilite o flutter beta para utilizar os mesmos recursos da aplicação e o prototipo flutter Web
- flutter channel beta
- flutter upgrade
- flutter config --enable-web
+- flutter channel beta
+- flutter upgrade
+- flutter config --enable-web
  
 Instale as dependências do pubspec.yaml executando `flutter packages get` da raiz do projeto (consulte [usando a documentação dos pacotes] (https://flutter.io/using-packages/#adding-a-package-dependency-to-an- app) para obter detalhes e como fazer isso no editor).
 
