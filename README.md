@@ -12,5 +12,5 @@ flutter channel beta
 # Aplicativo de exemplo
 
 ![](https://raw.githubusercontent.com/zapiti/zapiti_desafio/main/readme/banner.png)
-<img src="https://raw.githubusercontent.com/zapiti/zapiti_desafio/main/readme/screenshot_1.png" alt="drawing" style="width:100px;"/>
+<img src="https://raw.githubusercontent.com/zapiti/zapiti_desafio/main/readme/screenshot_1.png" alt="drawing" style="width:100px;height:100px"/>
 
