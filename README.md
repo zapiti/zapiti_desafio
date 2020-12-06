@@ -1,10 +1,10 @@
-### Funcionalidades
+## Funcionalidades
 
 - Aplicativo desenvolvido em flutter
 - Aplicativo de exemplo com funcionalidades do firebase e utilização de arquitetura modular.
 - Baixe agora na googleplay.
 
-### Principais feramentas utilizadas
+## Principais feramentas utilizadas
 
 - Slidy: 
 Gerenciador de pacotes CLI e gerador de modelos para Flutter. Facilitando gerar  Módulos, Páginas, Widgets, BLoCs, Controladores e testes.
@@ -33,7 +33,7 @@ Instale as dependências do pubspec.yaml executando `flutter packages get` da ra
 
 Pronto, agora você pode abrir e editar o projeto.
 
-### Aplicativo de exemplo
+## Aplicativo de exemplo
 
 ![](https://raw.githubusercontent.com/zapiti/zapiti_desafio/main/readme/banner.png)
 
