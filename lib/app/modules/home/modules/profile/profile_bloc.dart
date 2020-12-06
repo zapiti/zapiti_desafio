@@ -27,7 +27,7 @@ class ProfileBloc extends Disposable {
     var appBloc = Modular.get<AppBloc>();
 
     FirebaseFirestore db = GetIt.I.get<FirebaseFirestore>();
-    String uid = appBloc.getCurrentUserValue().uid.toString();
+    String uid = appBloc.getCurrentUserValue()?.uid.toString();
     try {
       db.collection('users').doc(uid).get().then((data) {
         var item = data.data();
@@ -66,7 +66,7 @@ class ProfileBloc extends Disposable {
           positiveText: StringFile.logarAgora);
     } else {
       FirebaseFirestore db = GetIt.I.get<FirebaseFirestore>();
-      String uid = appBloc.getCurrentUserValue().uid.toString();
+      String uid = appBloc.getCurrentUserValue()?.uid.toString();
       try {
         var user = appBloc.currentUserSubject.stream.value ?? MyUser();
         user.name = signupNameController.text;

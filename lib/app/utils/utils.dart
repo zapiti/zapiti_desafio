@@ -30,7 +30,7 @@ class Utils {
         appBloc.getCurrentUserValue()?.uid?.toString() == null) {
       return false;
     } else {
-      if (news.user.uid == appBloc.getCurrentUserValue().uid.toString()) {
+      if (news.user?.uid == appBloc.getCurrentUserValue()?.uid.toString()) {
         return true;
       }
     }

@@ -53,7 +53,7 @@ class _MyChatPageState extends State<_MyChatPage> {
       firstName: current.name,
       lastName: "",
       
-      uid: current.uid,
+      uid: current?.uid,
      avatar:current.profile_picture ?? ImagePath.radom(0),
     );
     otherUser = ChatUser(

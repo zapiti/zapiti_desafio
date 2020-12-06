@@ -9,7 +9,7 @@ class Users{
   Future updateUserData(String name , String email ) async{
     final CollectionReference users = db.collection('users');
 
-    return await users.doc(this.uid).set({
+    return await users.doc(this?.uid).set({
       'name' : name,
       'email' : email,
     });

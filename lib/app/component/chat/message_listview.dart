@@ -123,7 +123,7 @@ class _MessageListViewState extends State<MessageListView> {
           widget.messages[index].user.uid;
     } else if (widget.inverted && index - 1 >= 0) {
       return widget.messages[index - 1].user.uid !=
-          widget.messages[index].user.uid;
+          widget.messages[index].user?.uid;
     }
     return true;
   }
@@ -208,7 +208,7 @@ class _MessageListViewState extends State<MessageListView> {
                             ),
                             child: Row(
                               mainAxisAlignment:
-                                  widget.messages[i].user.uid == widget.user.uid
+                                  widget.messages[i].user?.uid == widget.user?.uid
                                       ? MainAxisAlignment.end
                                       : MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.end,
@@ -220,7 +220,7 @@ class _MessageListViewState extends State<MessageListView> {
                                   child: Opacity(
                                     opacity: (widget.showAvatarForEverMessage ||
                                                 showAvatar) &&
-                                            widget.messages[i].user.uid !=
+                                            widget.messages[i].user?.uid !=
                                                 widget.user.uid
                                         ? 1
                                         : 0,

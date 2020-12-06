@@ -44,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
             child: StreamBuilder<MyUser>(
                 stream: appBloc.currentUserSubject,
                 builder: (context, snapshotUser) =>
-                    snapshotUser.data.uid == null
+                    snapshotUser.data?.uid == null
                         ?  emptyViewMobile(context,tentarNovamente: (){
                       Modular.get<LoginBloc>().getLogout(goToLogin: true);
                     },buttomText: StringFile.logarAgora,emptyMessage: StringFile.naoAnadaPorAqui)

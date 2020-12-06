@@ -75,7 +75,7 @@ class LoginBloc extends Disposable {
         var result = await auth.createUserWithEmailAndPassword(
             email: emailController.text, password: passController.text);
         final user = result.user;
-        await Users(uid: user.uid)
+        await Users(uid: user?.uid)
             .updateUserData(nameController.text, emailController.text);
         user.sendEmailVerification();
         isLoad.sink.add(false);
