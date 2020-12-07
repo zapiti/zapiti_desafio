@@ -3,6 +3,7 @@
 - Aplicativo desenvolvido em flutter
 - Aplicativo de exemplo com funcionalidades do firebase e utilização de arquitetura modular.
 - Baixe agora na googleplay.
+https://play.google.com/store/apps/details?id=com.zapiti.desafio 
 
 ## Principais feramentas utilizadas
 
@@ -34,7 +35,7 @@ Instale as dependências do pubspec.yaml executando `flutter packages get` da ra
 Pronto, agora você pode abrir e editar o projeto.
 
 ## Aplicativo de exemplo
-
+https://play.google.com/store/apps/details?id=com.zapiti.desafio
 ![](https://raw.githubusercontent.com/zapiti/zapiti_desafio/main/readme/banner.png)
 
 
